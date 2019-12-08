@@ -40,7 +40,7 @@ void checkLightLevelPot() {
 	}
 	
 	// To avaoid flicker, only change level if +/-4 steps
-	if ((potLightLevelLast-potLightLevel > 4) || (potLightLevelLast-potLightLevel < -4)) {
+	if ((potLightLevelLast-potLightLevel > THRESHOLDCHANGE) || (potLightLevelLast-potLightLevel < -THRESHOLDCHANGE)) {
 		Serial.print("Light level changed to ");
 		Serial.println(potLightLevel);
 		ws2812fx.setBrightness(potLightLevel);
