@@ -6,6 +6,7 @@
 #define WS2812PIXELS 20
 #define POTMIN 20
 #define POTMAX 1010
+#define THRESHOLDCHANGE 4
 
 int potLightLevelLast = -10;
 
@@ -32,6 +33,12 @@ void checkLightLevelPot() {
 		potLightLevel = POTMAX;
 	}
 	potLightLevel = map(potLightLevel, POTMIN, POTMAX, 0, 255);
+	
+	//If light level is bellow 4, cap it to 0 to get complete off
+	if (potLightLevel <= THRESHOLDCHANGE) {
+		potLightLevel = 0;
+	}
+	
 	// To avaoid flicker, only change level if +/-4 steps
 	if ((potLightLevelLast-potLightLevel > 4) || (potLightLevelLast-potLightLevel < -4)) {
 		Serial.print("Light level changed to ");
